@@ -1,4 +1,13 @@
-import { FormControl, InputLabel, Select, MenuItem, Button, Box } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Box,
+} from "@mui/material";
+import useNoticias from "../hook/useNoticias";
+import ListNew from "./listNew";
 const CATEGORIAS = [
   { value: "general", label: "General" },
   { value: "business", label: "Negocios" },
@@ -9,26 +18,30 @@ const CATEGORIAS = [
   { value: "technology", label: "Tecnología" },
 ];
 function Formulario() {
+  const { categoria, handleCategoria } = useNoticias();
+  console.log(categoria);
+
   return (
     <>
       <form>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Categoría</InputLabel>
+          <InputLabel>Categoría</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            
+            label="Categoría"
+            onChange={handleCategoria}
+            value={categoria}
           >
-            {CATEGORIAS.map((option) => (
-              <MenuItem key={option.value}>{option.label}</MenuItem>
+            {CATEGORIAS.map((categoria) => (
+              <MenuItem key={categoria.value} value={categoria.value}>
+                {categoria.label}
+              </MenuItem>
             ))}
           </Select>
-          <Box sx={{marginTop:2}}>
-          <Button  fullWidth variant="contained" color="error">
-            Buscar
-          </Button>
+          <Box sx={{ marginTop: 2 }}>
+            <Button fullWidth variant="contained" color="error">
+              Buscar
+            </Button>
           </Box>
-      
         </FormControl>
       </form>
     </>
